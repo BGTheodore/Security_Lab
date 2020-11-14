@@ -1,9 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Portscanner with  banner grabbing
+# input : ip to scan
+# output : CSV file with the columns :'Port', 'IP', 'Service', 'Domain', 'Banner'.
+
 # Jean-Bernard Altidor
 
-# call: script.py <ipaddress> 
+
 
 import sys
 from datetime import datetime
@@ -18,7 +21,6 @@ def scanport(addr):
  try:
     for port in range(1,1024):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-       # s.setdefaulttimeout(1)
         result = s.connect_ex((addr,port))
         if result == 0:
             data =[]
@@ -44,14 +46,11 @@ def banner_grabber(addr,port):
    
         print( "Attempting to get banner for port: ", port)
         bannergrabber = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        #bannergrabber.setdefaulttimeout(2)
+       
         try:
             bannergrabber.connect((addr, port))
-            bannergrabber.send('WhoAreYou\r\n')
+            bannergrabber.send('GET HTTP/1.1 \r\n')
             banner = bannergrabber.recv(100)
-            #bannergrabber.send('GET HTTP/1.1 \r\n')
-            #bannergrabber.send('WhoAreYou\r\n')
-           # banner = bannergrabber.recv(1024)
             bannergrabber.close()
             return banner
         except:
