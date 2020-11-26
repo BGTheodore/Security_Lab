@@ -1,4 +1,4 @@
-from language_detector import detect_language
+# from language_detector import detect_language
 #Function to do the encryption
 #Takes the plaintext and key as parameter and returns the cypher
 
@@ -48,5 +48,5 @@ if __name__ == "__main__":
     print("Ciphertext :", cipher_text) 
     plain_text = decryption(cipher_text,key) 
     print("Plaintext :", plain_text) 
-    print (detect_language(plain_text))
+    # print (detect_language(plain_text))
     
