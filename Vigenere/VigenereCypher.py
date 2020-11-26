@@ -32,10 +32,10 @@ def decryption(ciphertext,key):
 
 # Driver code 
 if __name__ == "__main__": 
-   # string = "Testing the cypher"
-    with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Betes.txt', 'r') as file:
-        string = file.read().replace('\n', '')
-    key = "clef" 
+    string = "Je teste l'algorithme ,test 12 test!"
+    # with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Betes.txt', 'r') as file:
+    #     string = file.read().replace('\n', '')
+    key = "c" 
     cipher_text = encryption(string,key) 
     print("Ciphertext :", cipher_text) 
     plain_text = decryption(cipher_text,key) 
