@@ -29,13 +29,21 @@ def decryption(ciphertext,key):
         
     return plain
 
+def TextCleanup(message): 
+    message = ''.join(message.split())
+    message = message.replace ("\n", "").replace ("\r", "").replace ("\t", "").replace (" ", "").replace (",", "")
+    message = message.replace (";", "").replace (":", "").replace (".", "").replace ("'", "").replace ("\"", "")
+    message = message.replace ("-", "").replace ("!", "").replace ("?", "").replace ("(", "").replace (")", "")
+    message = message.upper ()
+    return message
 
 # Driver code 
 if __name__ == "__main__": 
-    string = "Je teste l'algorithme ,test 12 test!"
+    string = "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    string = TextCleanup(string) 
     # with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Betes.txt', 'r') as file:
     #     string = file.read().replace('\n', '')
-    key = "c" 
+    key = "toto" 
     cipher_text = encryption(string,key) 
     print("Ciphertext :", cipher_text) 
     plain_text = decryption(cipher_text,key) 
