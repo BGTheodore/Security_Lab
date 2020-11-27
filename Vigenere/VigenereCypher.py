@@ -39,11 +39,11 @@ def TextCleanup(message):
 
 # Driver code 
 if __name__ == "__main__": 
-    string = "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    string = "check la tortue de la ville attaque"
     string = TextCleanup(string) 
     # with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Betes.txt', 'r') as file:
     #     string = file.read().replace('\n', '')
-    key = "toto" 
+    key = "te" 
     cipher_text = encryption(string,key) 
     print("Ciphertext :", cipher_text) 
     plain_text = decryption(cipher_text,key) 
