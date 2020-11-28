@@ -28,19 +28,19 @@ def vignere(txt='', key='', typ=''):
     return (resultat)
 # Driver code 
 if __name__ == "__main__": 
-    # texte = input("Veuillez choisir le fichier a encrypter: ")
+    texte = input("Veuillez choisir le fichier a encrypter: ")
    
-    # try :
-    #     dirname = os.path.dirname(__file__)
-    #     filename = os.path.join(dirname, texte)
+    try :
+        dirname = os.path.dirname(__file__)
+        filename = os.path.join(dirname, texte)
         
-    #     with open(filename, 'r') as file:
-    #         string = file.read().replace('\n', ' ')
-    # except FileNotFoundError:
-    #     print ("Erreur d'ouverture de fichier.")
-    #     quit()
+        with open(filename, 'r') as file:
+            string = file.read().replace('\n', ' ')
+    except FileNotFoundError:
+        print ("Erreur d'ouverture de fichier.")
+        quit()
        
-    string = "Les hommes et les femmes politiques, qu’ils soient de droite comme de gauche, s’accordent tous sur ce point : ils veulent protéger la laïcité."
+    # string = "Les hommes et les femmes politiques, qu’ils soient de droite comme de gauche, s’accordent tous sur ce point : ils veulent protéger la laïcité."
     key = input("Veuillez entrer la cle : ")
     q = vignere(string,  key, 'e')
     with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Cypher.txt', 'w') as file:
