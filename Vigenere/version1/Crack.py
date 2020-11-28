@@ -4,11 +4,23 @@ import gcld3
 detector = gcld3.NNetLanguageIdentifier(min_num_bytes=0, 
                                         max_num_bytes=1000)
 
+def CesarCrack(cipher):
+    most_occuring_charater = collections.Counter(cipher).most_common(1)[0] #Find the most occuring letter
+    shift = (ord(most_occuring_charater[0]) - ord ('e')) % 95 #Maps it to "e" and gets the shift 
+    print ("The key is probably:",chr(95+shift))
+    
+    #decodes it
+    ciphertext_to_int= [ord(i) for i in cipher]    
+    plain = ''
+    for i in range (len(ciphertext_to_int)):  #Goes through all the cypher
+        plain_int = (ciphertext_to_int[i] - 32 - shift ) % 95 
+        plain +=chr (plain_int + 32)
+    return plain
 
 def CesarKeyFinder(cypher):
     most_occuring_charater = collections.Counter(cypher).most_common(1)[0] #Find the most occuring letter
     shift = (ord(most_occuring_charater[0]) - ord ('e'))  #Maps it to "e" and gets the shift 
-    return chr((101 + shift)%223)
+    return chr(shift% 95)
 
 def Validate(plaintext):
     result = detector.FindLanguage(text=plaintext)  
@@ -31,7 +43,7 @@ def decryption(ciphertext,key):
     key_to_int = [ord(i) for i in key] #Same thing
     plain = ''
     for i in range (len(ciphertext_to_int)):  #Goes through all the cypher
-        plain_int = (ciphertext_to_int[i] - 32 - key_to_int[i% len(key)]) %  223 #Applies the key to the plaintext.modulo 26 cause of the alphabet length .
+        plain_int = (ciphertext_to_int[i] - 32 - key_to_int[i% len(key)]) % 95 #Applies the key to the plaintext.modulo 26 cause of the alphabet length .
                                                                         #modulo len(key) cause the key is used as much time need to meet the cyphertext length.
         plain +=chr (plain_int + 32)
         
@@ -40,9 +52,11 @@ def decryption(ciphertext,key):
 
 # Driver code 
 if __name__ == "__main__":    
-    cypher= """ÀÞãÜèÝÜÙìÔèÜÔçÖÔáæÕâéßÛÝíÙàéÞãêåMÝåãçèÙÔâíÓÙÔáãâäÔÜßÜáÞÓÙ×ÐéÜØÔ ãMÕÜÓÞæÝÕÝèäÞéìâéëÒÙàÞÝçä®ÙÛçæÔéåÕÝèàáãízÖÙëÛÕÜÐÜÙã~§"""
-    # with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Cypher.txt', 'r') as file:
-    #     cypher =file.read()
+    cypher= """XNZI`RVZdXi[ZJZRV\^RaKVZiGf[Z"""
+    # resultat = CesarCrack(cypher)
+    # print ("Plaintext : ",resultat)
+    # Validate(resultat)
+   
     for size in range(2,10): #Size of the key
         Sliced = TextSlicer(cypher,size)
         key = ''
