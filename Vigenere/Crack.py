@@ -8,7 +8,7 @@ detector = gcld3.NNetLanguageIdentifier(min_num_bytes=0,
 def CesarKeyFinder(cypher):
     most_occuring_charater = collections.Counter(cypher).most_common(1)[0] #Find the most occuring letter
     shift = (ord(most_occuring_charater[0]) - ord ('e'))  #Maps it to "e" and gets the shift 
-    return chr((101 + shift)%223)
+    return chr(shift%240)
 
 def Validate(plaintext):
     result = detector.FindLanguage(text=plaintext)  
@@ -31,9 +31,9 @@ def decryption(ciphertext,key):
     key_to_int = [ord(i) for i in key] #Same thing
     plain = ''
     for i in range (len(ciphertext_to_int)):  #Goes through all the cypher
-        plain_int = (ciphertext_to_int[i] - 32 - key_to_int[i% len(key)]) %  223 #Applies the key to the plaintext.modulo 26 cause of the alphabet length .
+        plain_int = (ciphertext_to_int[i] - key_to_int[i% len(key)]) %  240 #Applies the key to the plaintext.modulo 26 cause of the alphabet length .
                                                                         #modulo len(key) cause the key is used as much time need to meet the cyphertext length.
-        plain +=chr (plain_int + 32)
+        plain +=chr (plain_int)
         
     return plain
 
