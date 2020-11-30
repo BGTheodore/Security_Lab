@@ -21,9 +21,9 @@ def vignere(txt='', key='', typ=''):
         if typ == 'd':
             shift *= -1
 
-        v = (txt_to_int[i] - 32 + shift) % 223
+        v = (txt_to_int[i] + shift) % 240
 
-        resultat += chr(v + 32)
+        resultat += chr(v )
 
     return (resultat)
 # Driver code 
@@ -35,12 +35,12 @@ if __name__ == "__main__":
         filename = os.path.join(dirname, texte)
         
         with open(filename, 'r') as file:
-            string = file.read().replace('\n', ' ')
+            string = file.read().replace('\n', ' ').replace ("""’""", " ")
     except FileNotFoundError:
         print ("Erreur d'ouverture de fichier.")
         quit()
        
-    # string = "Les hommes et les femmes politiques, qu’ils soient de droite comme de gauche, s’accordent tous sur ce point : ils veulent protéger la laïcité."
+
     key = input("Veuillez entrer la cle : ")
     q = vignere(string,  key, 'e')
     with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Cypher.txt', 'w') as file:
@@ -48,3 +48,4 @@ if __name__ == "__main__":
    
     print("Votre message a ete encrypte avec succes! Veuillez verifier le fichier Cypher.txt")
     
+   
