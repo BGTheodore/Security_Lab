@@ -19,17 +19,17 @@ def vignere(txt='', key='', typ=''):
         if typ == 'd':
             shift *= -1
 
-        v = (txt_to_int[i] + shift) % 26
+        v = (txt_to_int[i] + shift) % 255
 
-        resultat += chr(v + 65)
+        resultat += chr(v )
 
     return (resultat)
 # Driver code 
 if __name__ == "__main__": 
-    string = "check on the updated code"
-    string = ''.join(string.split())
-    string= string.upper()
-    key = "typo"
+    with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Betes.txt', 'r') as file:
+       string = file.read().replace('\n', ' ').replace ("""’""", " ")
+    key = "ti"
     q = vignere(string,  key, 'e')
-    print(q)
+    with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/coded.txt', 'w') as file:
+        string = file.write(q)
     print (vignere(q, key, 'd'))

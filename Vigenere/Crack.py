@@ -1,22 +1,22 @@
 #Crack that works for VignereCypher.py
-import collections
+import collections 
 import gcld3
 detector = gcld3.NNetLanguageIdentifier(min_num_bytes=0, 
                                         max_num_bytes=1000)
-
-
 def CesarKeyFinder(cypher):
     most_occuring_charater = collections.Counter(cypher).most_common(1)[0] #Find the most occuring letter
-    shift = (ord(most_occuring_charater[0]) - ord ('e'))  #Maps it to "e" and gets the shift 
-    return chr(shift%240)
+    shift = (ord(most_occuring_charater[0]) - ord ('e')) %240 #Maps it to "e" and gets the shift 
+    return chr(shift)
 
 def Validate(plaintext):
     result = detector.FindLanguage(text=plaintext)  
-    if result.is_reliable and result.language == 'fr':
+    if result.probability > 0.50 and result.language == 'fr':
         print ("Le resultat du dechiffrement est fiable a {:.2f} % .".format(result.probability*100))
-    else :
+        return True
+    else:
         print("Le resultat du dechiffrement est peu fiable ({:.2f} %).".format(result.probability*100))
-    return result.is_reliable 
+        return False
+    
 
 def TextSlicer(cypher,step): 
     C={}
@@ -24,31 +24,34 @@ def TextSlicer(cypher,step):
         C[i]=cypher[i::step]
     return C
 
-def decryption(ciphertext,key):
-   # ciphertext =  ''.join(ciphertext.split()) #To remove all white spaces
-    ciphertext_to_int= [ord(i) for i in ciphertext] #Converts the plaintext to an array of numeric values of the characters (Unicode)
-                                               #Easier to manipulate 
-    key_to_int = [ord(i) for i in key] #Same thing
-    plain = ''
-    for i in range (len(ciphertext_to_int)):  #Goes through all the cypher
-        plain_int = (ciphertext_to_int[i] - key_to_int[i% len(key)]) %  240 #Applies the key to the plaintext.modulo 26 cause of the alphabet length .
-                                                                        #modulo len(key) cause the key is used as much time need to meet the cyphertext length.
-        plain +=chr (plain_int)
-        
-    return plain
+def decryption(txt,key):
+    key_to_int = [ord(i) for i in key]
+    txt_to_int = [ord(i) for i in txt]
+    resultat = ''
+    for i in range(len(txt_to_int)):
+        shift =key_to_int[i % len(key)]
+        v = (txt_to_int[i] - shift) % 255
 
+        resultat += chr(v)
 
+    return (resultat)
 # Driver code 
 if __name__ == "__main__":    
-    #cypher= """ÀÞãÜèÝÜÙìÔèÜÔçÖÔáæÕâéßÛÝíÙàéÞãêåMÝåãçèÙÔâíÓÙÔáãâäÔÜßÜáÞÓÙ×ÐéÜØÔ ãMÕÜÓÞæÝÕÝèäÞéìâéëÒÙàÞÝçä®ÙÛçæÔéåÕÝèàáãízÖÙëÛÕÜÐÜÙã~§"""
-    with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Cypher.txt', 'r') as file:
-        cypher =file.read()
-    for size in range(2,10): #Size of the key
+    with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/coded.txt', 'r') as file:
+       cypher = file.read()
+    
+    for size in range(1,10): #Size of the key
         Sliced = TextSlicer(cypher,size)
         key = ''
         for i in Sliced.keys():
             key +=CesarKeyFinder(Sliced[i])        
         print ("Possible Key with size",size,"is :",key)
         resultat = decryption(cypher,key)
-        print(resultat)
+        if Validate(resultat):
+            test=input(">Entrez T pour terminer ou une autre touche pour continuer. : ")
+            if (test.upper() == 'T'):
+                print("Resultat de la decryption :")
+                print(resultat)
+                break
+        
     
