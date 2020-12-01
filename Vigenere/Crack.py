@@ -40,9 +40,9 @@ def decryption(ciphertext,key):
 
 # Driver code 
 if __name__ == "__main__":    
-    cypher= """ÀÞãÜèÝÜÙìÔèÜÔçÖÔáæÕâéßÛÝíÙàéÞãêåMÝåãçèÙÔâíÓÙÔáãâäÔÜßÜáÞÓÙ×ÐéÜØÔ ãMÕÜÓÞæÝÕÝèäÞéìâéëÒÙàÞÝçä®ÙÛçæÔéåÕÝèàáãízÖÙëÛÕÜÐÜÙã~§"""
-    # with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Cypher.txt', 'r') as file:
-    #     cypher =file.read()
+    #cypher= """ÀÞãÜèÝÜÙìÔèÜÔçÖÔáæÕâéßÛÝíÙàéÞãêåMÝåãçèÙÔâíÓÙÔáãâäÔÜßÜáÞÓÙ×ÐéÜØÔ ãMÕÜÓÞæÝÕÝèäÞéìâéëÒÙàÞÝçä®ÙÛçæÔéåÕÝèàáãízÖÙëÛÕÜÐÜÙã~§"""
+    with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Cypher.txt', 'r') as file:
+        cypher =file.read()
     for size in range(2,10): #Size of the key
         Sliced = TextSlicer(cypher,size)
         key = ''
