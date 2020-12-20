@@ -43,8 +43,16 @@ if __name__ == "__main__":
 
     key = input("Veuillez entrer la cle : ")
     q = vignere(string,  key, 'e')
-    with open('/home/altidor/Documents/Projects/Security_Lab-main/Vigenere/Cypher.txt', 'w') as file:
-        string = file.write(q)
+       
+    try :
+        dirname = os.path.dirname(__file__)
+        filename = os.path.join(dirname, "Cypher.txt")
+        with open(filename, 'w') as file:
+         string = file.write(q)
+        
+    except FileNotFoundError:
+        print ("Erreur d'ouverture de fichier.")
+        
    
     print("Votre message a ete encrypte avec succes! Veuillez verifier le fichier Cypher.txt")
     
